@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloaded Movies</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Downloaded Movies</h1>
+        <div id="movieList" class="movie-list"></div>
+        <div id="playerContainer" class="hidden">
+            <video id="videoPlayer" controls>
+                <source id="videoSource" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+        </div>
+    </div>
+
+    <script>
+        async function fetchDownloadedMovies() {
+            try {
+                const response = await fetch('/api/downloaded-movies');
+                const movies = await response.json();
+                displayMovies(movies);
+            } catch (error) {
+                console.error('Error fetching movies:', error);
+            }
+        }
+
+        function displayMovies(movies) {
+            const container = document.getElementById('movieList');
+            container.innerHTML = movies.map(movie => `
+                <div class="movie-card">
+                    <h3>${movie}</h3>
+                    <button onclick="playMovie('${movie}')">Watch</button>
+                </div>
+            `).join('');
+        }
+
+        function playMovie(movie) {
+            document.getElementById('playerContainer').classList.remove('hidden');
+            document.getElementById('videoSource').src = `/stream-movie?file=${encodeURIComponent(movie)}`;
+            document.getElementById('videoPlayer').load();
+        }
+
+        fetchDownloadedMovies();
+    </script>
+</body>
+</html>

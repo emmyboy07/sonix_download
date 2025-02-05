@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torrent Streamer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Torrent Downloader</h1>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Enter movie name...">
+            <button onclick="searchMovies()">Search</button>
+        </div>
+
+        <div id="results" class="results-section"></div>
+
+        <div id="playerContainer" class="hidden">
+            <video id="videoPlayer" controls>
+                <source id="videoSource" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <div class="download-info">
+                <p>Progress: <span id="progress">0</span>%</p>
+                <p>Status: <span id="status">Waiting...</span></p>
+            </div>
+        </div>
+
+        <div id="errorMessage" class="error"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
